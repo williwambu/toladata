@@ -9,7 +9,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // HTTP intercepter
 import { TokenInterceptor } from './interceptors/token.interceptor';
@@ -31,7 +30,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MatInputModule,
     FlexLayoutModule,
     HttpClientModule,
-    NgxDatatableModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])
   ],

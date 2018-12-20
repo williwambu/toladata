@@ -1,10 +1,105 @@
-<h1>
-  Programs/Activities
+<h1 class="programs-list__header">
+  Programs
 </h1>
+<mat-divider fxFlex="80"></mat-divider>
 
-<p *ngIf="!((programs$ | async)?.length)">
-  No programs, you can add programs by clicking on add.
-</p>
-<p *ngFor="let program of (programs$ | async)">
-  {{program.name}}
-</p>
+
+<ngx-datatable
+  #programsTable
+  class="bootstrap"
+  [columnMode]="'flex'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="50"
+  [rows]="programs$ | async">
+
+  <!-- Row detail template -->
+  <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onActivitiesToggle($event)">
+    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+      <div style="padding-left:35px;">
+        <div><strong>Address</strong></div>
+        <div>this is the address</div>
+      </div>
+    </ng-template>
+  </ngx-datatable-row-detail>
+
+  <!--toggle button-->
+  <ngx-datatable-column [flexGrow]="0.3">
+    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+      <a
+        matTooltip="Expand/Collapse to view activities"
+        href="javascript:void(0)"
+        title="Expand/Collapse Row"
+        (click)="toggleExpandRow(row)">
+        <mat-icon *ngIf="!expanded">chevron_right</mat-icon>
+        <mat-icon *ngIf="expanded">expand_more</mat-icon>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- Program name -->
+  <ngx-datatable-column name="Name" [flexGrow]="2">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.name }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- Program start date -->
+  <ngx-datatable-column name="Start date" [flexGrow]="1">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ (row?.start_date | date) || 'N/A' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- Program end date -->
+  <ngx-datatable-column name="End date" [flexGrow]="1">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ (row?.end_date | date) || 'N/A' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- last updated -->
+  <ngx-datatable-column name="Budget"  [flexGrow]="1">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{(row?.budget | currency: ' ') || 'N/A'}}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- last updated date -->
+  <ngx-datatable-column name="Last updated" [flexGrow]="1">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ (row?.end_date | date) || 'N/A' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- add activity -->
+  <ngx-datatable-column [flexGrow]="0.2">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <a href="#" (click)="goToAddActivity($event)" matTooltip="Add activity to program">
+        <mat-icon>add</mat-icon>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- program actions -->
+  <ngx-datatable-column name="Actions" [flexGrow]="0.4">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="$event.stopPropagation()" class="hidden-on-open">
+          <mat-icon class="text-muted">more_vert</mat-icon>
+      </button>
+      <mat-menu #msgMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>more</mat-icon>View program
+        </button>
+        <button mat-menu-item>
+            <mat-icon>add</mat-icon>Add activity
+        </button>
+        <button mat-menu-item>
+            <mat-icon>filter_list</mat-icon>View activities
+        </button>
+      </mat-menu>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+
+
