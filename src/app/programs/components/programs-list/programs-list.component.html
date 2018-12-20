@@ -1,0 +1,10 @@
+<h1>
+  Programs/Activities
+</h1>
+
+<p *ngIf="!((programs$ | async)?.length)">
+  No programs, you can add programs by clicking on add.
+</p>
+<p *ngFor="let program of (programs$ | async)">
+  {{program.name}}
+</p>
