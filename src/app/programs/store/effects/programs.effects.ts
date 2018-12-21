@@ -5,7 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as programActions from '../actions/programs.actions';
-import * as fromServices from '../../services';
+import * as fromServices from '../../../services/index';
 
 
 @Injectable()

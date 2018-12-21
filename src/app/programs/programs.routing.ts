@@ -1,9 +1,14 @@
 import { Routes } from '@angular/router';
-import { ProgramsListComponent } from './components/programs-list/programs-list.component';
+
+import * as fromComponents from './components';
 
 export const ROUTES: Routes = [
   {
     path: '',
-    component: ProgramsListComponent,
+    component: fromComponents.ProgramsListComponent,
   },
+  {
+    path: ':programId/activities/add',
+    component: fromComponents.AddActivityComponent
+  }
 ];

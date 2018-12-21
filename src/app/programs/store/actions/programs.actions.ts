@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Program } from '../../models/program.models';
+import { Program } from '../../../models/program.models';
 
 // load programs
 export const LOAD_PROGRAMS = '[Programs] Load programs';

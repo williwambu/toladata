@@ -1,0 +1,45 @@
+<form [formGroup]="activityForm" (ngSubmit)="createActivity()">
+    <div fxFlex="100%" fxLayout="row">
+      <mat-card-title class="">
+        <div class="card-title-text">Add Activity</div>
+        <p *ngIf="activitiesLoading$ | async" class="success">Activity created successfully</p>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+    </div>
+    <div fxFlex="60%" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Activity name*</mat-label>
+        <input
+          matInput
+          placeholder="Activity name*"
+          name="name"
+          formControlName="name">
+        <mat-error
+          *ngIf="activityForm.controls['name'].hasError('required') && activityForm.controls['name'].touched"
+          class="form-error-msg">Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Start date</mat-label>
+        <input matInput formControlName="start_date" [matDatepicker]="start_date" placeholder="Choose start date">
+        <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+        <mat-datepicker #start_date></mat-datepicker>
+      </mat-form-field>
+    </div>
+  <div fxFlex="60%" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>End date</mat-label>
+      <input matInput formControlName="end_date" [matDatepicker]="end_date" placeholder="Choose start date">
+      <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+      <mat-datepicker #end_date></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <button
+    type="submit"
+    fxFlexOffset="10"
+    fxFlexOffset.lt-md="0"
+    mat-raised-button
+    color="primary"
+    [disabled]="activityForm.invalid">Submit
+  </button>
+</form>

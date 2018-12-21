@@ -1,75 +1,42 @@
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromPrograms from './programs.reducer';
-import * as fromActivities from './activity.reducer';
+import * as fromRouter from '@ngrx/router-store';
+import { ActivatedRoute, RouterStateSnapshot, Params, ActivatedRouteSnapshot } from '@angular/router';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-// PROGRAMS
-export interface ProgramsState {
-  programs: fromPrograms.ProgramsState;
+export interface RouterStateUrl {
+  url: string;
+  queryParams: Params;
+  params: Params;
 }
 
-export const programReducers: ActionReducerMap<ProgramsState> = {
-  programs: fromPrograms.reducer,
-};
-export const getProgramsState = createFeatureSelector<ProgramsState>('programs');
 
-export const getProgramsDataState = createSelector(
-  getProgramsState,
-  (state: ProgramsState) => state.programs);
-
-export const getProgramsEntities = createSelector(
-  getProgramsDataState,
-  fromPrograms.getProgramsEntities);
-
-export const getAllPrograms = createSelector(
-  getProgramsEntities,
-  (entities) => {
-    return Object.keys(entities)
-      .map(id => entities[parseInt(id, 10)]);
-  });
-
-export const getProgramsLoaded = createSelector(
-  getProgramsDataState,
-  fromPrograms.getProgramsLoaded);
-
-export const getProgramsLoading = createSelector(
-  getProgramsDataState,
-  fromPrograms.getProgramsLoading);
-
-
-// ACTIVITIES
-export interface ActivitiesState {
-  activities: fromActivities.ActivitiesState;
-
+export interface State {
+  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
-export const activityReducers: ActionReducerMap<ActivitiesState> = {
-  activities: fromActivities.reducer,
+export const reducers: ActionReducerMap<State> = {
+  routerReducer: fromRouter.routerReducer
 };
 
-export const getActivitiesState = createFeatureSelector<ActivitiesState>('activities');
-export const getActivitiesDataState = createSelector(
-  getActivitiesState,
-  (state: ActivitiesState) => state.activities);
+export const getRouterState = createFeatureSelector<
+  fromRouter.RouterReducerState<RouterStateUrl>
+  >('routerReducer');
 
-export const getActivitiesEntities = createSelector(
-  getActivitiesDataState,
-  fromActivities.getActivitiesEntities);
+export class CustomSerializer implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+  serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+    const { url } = routerState;
+    const { queryParams } = routerState.root;
+    let state: ActivatedRouteSnapshot = routerState.root;
 
-export const getAllActivities = createSelector(
-  getActivitiesEntities,
-  (entities) => {
-    return Object.keys(entities)
-      .map(id => entities[parseInt(id, 10)]);
-  });
+    while (state.firstChild) {
+      state = state.firstChild;
+    }
 
-export const getActivityById = (activityId) => createSelector(
-  getActivitiesEntities,
-  entities => entities[activityId]);
+    const { params } = state;
 
-export const getActivitiesLoaded = createSelector(
-  getActivitiesDataState,
-  fromActivities.getActivitiesLoaded);
-
-export const getActivitiesLoading = createSelector(
-  getActivitiesDataState,
-  fromActivities.getActivitiesLoading);
+    return {
+      url,
+      queryParams,
+      params
+    };
+  }
+}

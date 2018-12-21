@@ -65,6 +65,15 @@
                 {{ (item?.end_date | date) || 'N/A' }}
               </ng-template>
             </ngx-datatable-column>
+
+            <!-- last updated date -->
+            <ngx-datatable-column name="Last updated" [flexGrow]="1.4">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                <a href="javascript:void(0)" (click)="deleteActivity(item?.id)" matTooltip="Delete activity">
+                  <mat-icon color="primary">delete</mat-icon>
+                </a>
+              </ng-template>
+            </ngx-datatable-column>
           </ngx-datatable>
 
         </div>
@@ -124,7 +133,7 @@
   <!-- add activity -->
   <ngx-datatable-column [flexGrow]="0.3">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <a href="#" (click)="goToAddActivity($event)" matTooltip="Add activity to program">
+      <a href="#" [routerLink]="[row?.id, 'activities', 'add']"  (click)="goToAddActivity($event)" matTooltip="Add activity to program">
         <mat-icon>add</mat-icon>
       </a>
     </ng-template>

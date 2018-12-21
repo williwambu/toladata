@@ -1,19 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule,
   MatDividerModule,
   MatIconModule,
   MatListModule,
   MatMenuModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatFormFieldModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
+
+
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SharedModule } from '../shared/shared.module';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { effects, programReducers, activityReducers } from '../store';
+import { effects, programReducers, activityReducers } from './store';
 
 // services
 import * as fromService from '../services';
@@ -23,7 +32,6 @@ import { ROUTES } from './programs.routing';
 
 // components
 import * as fromComponents from './components';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -37,6 +45,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatIconModule,
     MatTooltipModule,
     MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    SharedModule,
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature('programs', programReducers),
     StoreModule.forFeature('activities', activityReducers),

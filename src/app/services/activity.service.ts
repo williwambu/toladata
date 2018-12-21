@@ -12,7 +12,7 @@ export class ActivityService {
   private apiUrl: string;
 
   constructor (private http: HttpClient) {
-    this.apiUrl = `${environment.apiURL}/workflowlevel2`;
+    this.apiUrl = `${environment.apiURL}/workflowlevel2/`;
   }
 
   getActivities (): Observable<Activity[]> {
@@ -23,19 +23,19 @@ export class ActivityService {
 
   createActivity (payload: Activity): Observable<Activity> {
     return this.http
-      .put<Activity>(this.apiUrl, payload)
+      .post<Activity>(this.apiUrl, payload)
       .pipe(catchError((error: any) => throwError(error.json)));
   }
 
-  updateActivity (payload: Activity): Observable<Activity> {
+  updateActivity (payload: number): Observable<Activity> {
     return this.http
-      .put<Activity>(`${this.apiUrl}/${payload.id}/`, payload)
+      .put<Activity>(`${this.apiUrl}${payload}/`, payload)
       .pipe(catchError((error: any) => throwError(error.json())));
   }
 
-  removePizza (payload: Activity): Observable<Activity> {
+  removeActivity (payload: number): Observable<Activity> {
     return this.http
-      .delete<any>(`${this.apiUrl}/${payload.id}/`)
+      .delete<any>(`${this.apiUrl}${payload}/`)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 }

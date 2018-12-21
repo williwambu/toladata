@@ -1,20 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { reducers, CustomSerializer } from './store';
+
+import { MAT_DATE_LOCALE, MatCardModule, MatToolbarModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 
 // ngrx/store devtools
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // HTTP intercepter
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,14 +32,12 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatIconModule,
     MatToolbarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     FlexLayoutModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    ToastrModule.forRoot(),
+    StoreModule.forRoot(reducers),
+    StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
@@ -43,7 +47,15 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
-  }],
+  },
+  {
+    provide: RouterStateSerializer,
+    useClass: CustomSerializer
+  },
+  {
+    provide: MAT_DATE_LOCALE,
+    useValue: 'en-GB'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

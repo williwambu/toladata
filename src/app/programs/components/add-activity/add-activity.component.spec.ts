@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { ProgramsListComponent } from './programs-list.component';
+import { AddActivityComponent } from './add-activity.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule, MatDatepickerModule,
@@ -12,17 +13,19 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-describe('ProgramsListComponent', () => {
-  let component: ProgramsListComponent;
-  let fixture: ComponentFixture<ProgramsListComponent>;
+describe('AddActivityComponent', () => {
+  let component: AddActivityComponent;
+  let fixture: ComponentFixture<AddActivityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgramsListComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [MatCardModule,
+      declarations: [ AddActivityComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
+      imports: [
+        MatCardModule,
         MatDividerModule,
         NgxDatatableModule,
         MatButtonModule,
@@ -35,13 +38,14 @@ describe('ProgramsListComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,
-        MatNativeDateModule]
+        MatNativeDateModule,
+      ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProgramsListComponent);
+    fixture = TestBed.createComponent(AddActivityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

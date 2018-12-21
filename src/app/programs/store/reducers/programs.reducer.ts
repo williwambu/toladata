@@ -1,23 +1,23 @@
 import * as fromPrograms from '../actions/programs.actions';
-import { Program } from '../../models/program.models';
+import { Program } from '../../../models/program.models';
 
 
-export interface ProgramsState {
+export interface IProgramsState {
   entities: { [id: number]: Program };
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState = {
+export const programsInitialState = {
   entities: {},
   loaded: false,
   loading: false
 };
 
 export function reducer (
-  state = initialState,
+  state = programsInitialState,
   action: fromPrograms.ProgramsActions
-): ProgramsState {
+): IProgramsState {
   switch (action.type) {
     case fromPrograms.LOAD_PROGRAMS: {
       return {
@@ -56,6 +56,6 @@ export function reducer (
   return state;
 }
 
-export const getProgramsLoading = (state: ProgramsState) => state.loading;
-export const getProgramsLoaded = (state: ProgramsState) => state.loaded;
-export const getProgramsEntities = (state: ProgramsState) => state.entities;
+export const getProgramsLoadingValue = (state: IProgramsState) => state.loading;
+export const getProgramsLoadedValue = (state: IProgramsState) => state.loaded;
+export const getProgramsEntitiesValue = (state: IProgramsState) => state.entities;
