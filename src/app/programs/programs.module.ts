@@ -5,6 +5,7 @@ import {
   MatButtonModule, MatCardModule,
   MatDividerModule,
   MatIconModule,
+  MatListModule,
   MatMenuModule,
   MatTooltipModule
 } from '@angular/material';
@@ -12,7 +13,7 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { effects, reducers } from '../store';
+import { effects, programReducers, activityReducers } from '../store';
 
 // services
 import * as fromService from '../services';
@@ -35,8 +36,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
+    MatListModule,
     RouterModule.forChild(ROUTES),
-    StoreModule.forFeature('programs', reducers),
+    StoreModule.forFeature('programs', programReducers),
+    StoreModule.forFeature('activities', activityReducers),
     EffectsModule.forFeature(effects)
   ],
   providers: [...fromService.services]

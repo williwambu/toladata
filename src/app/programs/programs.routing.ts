@@ -5,5 +5,5 @@ export const ROUTES: Routes = [
   {
     path: '',
     component: ProgramsListComponent,
-  }
+  },
 ];

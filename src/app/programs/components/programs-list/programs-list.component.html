@@ -3,7 +3,6 @@
 </h1>
 <mat-divider fxFlex="80"></mat-divider>
 
-
 <ngx-datatable
   #programsTable
   class="bootstrap"
@@ -11,14 +10,64 @@
   [headerHeight]="50"
   [footerHeight]="50"
   [rowHeight]="50"
-  [rows]="programs$ | async">
+  [rows]="programs">
 
   <!-- Row detail template -->
-  <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onActivitiesToggle($event)">
+  <ngx-datatable-row-detail [rowHeight]="'100%'" #myDetailRow (toggle)="onActivitiesToggle($event)">
     <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-      <div style="padding-left:35px;">
-        <div><strong>Address</strong></div>
-        <div>this is the address</div>
+      <div class="activity">
+        <h3 class="activity__header">
+          Activities
+        </h3>
+        <div>
+          <ngx-datatable
+            #programsTable
+            class="bootstrap"
+            [columnMode]="'flex'"
+            [headerHeight]="0"
+            [footerHeight]="0"
+            [rowHeight]="30"
+            [rows]="row?.activities"
+            [messages]="activitiesTableMessages"
+            fxFlex="90%">
+            <ngx-datatable-column [flexGrow]="0.2">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Name" [flexGrow]="1.7">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                {{ item?.name }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- activity start date -->
+            <ngx-datatable-column name="Start date" [flexGrow]="0.8">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                {{ (item?.start_date | date) || 'N/A' }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- activity end date -->
+            <ngx-datatable-column name="End date" [flexGrow]="0.8">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                {{ (item?.end_date | date) || 'N/A' }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- last updated -->
+            <ngx-datatable-column name="Budget" [flexGrow]="1">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                {{(item?.budget | currency: ' ') || 'N/A'}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- last updated date -->
+            <ngx-datatable-column name="Last updated" [flexGrow]="1.4">
+              <ng-template let-item="row" ngx-datatable-cell-template>
+                {{ (item?.end_date | date) || 'N/A' }}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+
+        </div>
       </div>
     </ng-template>
   </ngx-datatable-row-detail>
@@ -73,7 +122,7 @@
   </ngx-datatable-column>
 
   <!-- add activity -->
-  <ngx-datatable-column [flexGrow]="0.2">
+  <ngx-datatable-column [flexGrow]="0.3">
     <ng-template let-row="row" ngx-datatable-cell-template>
       <a href="#" (click)="goToAddActivity($event)" matTooltip="Add activity to program">
         <mat-icon>add</mat-icon>
@@ -94,12 +143,10 @@
         <button mat-menu-item>
             <mat-icon>add</mat-icon>Add activity
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="toggleExpandRow(row)">
             <mat-icon>filter_list</mat-icon>View activities
         </button>
       </mat-menu>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>
-
-

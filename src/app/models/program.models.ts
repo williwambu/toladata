@@ -1,3 +1,5 @@
+import { Activity } from './activity.model';
+
 export interface Program {
   url: string;
   id: number;
@@ -26,4 +28,5 @@ export interface Program {
   country: string[];
   milestone: string[];
   user_access: string[];
+  activities?: Activity[];
 }

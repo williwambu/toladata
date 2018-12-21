@@ -3,8 +3,23 @@
   }
 }
 
-.ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
-  padding-left: 18px;
-  vertical-align: middle;
-  padding-top: 15px;
+.activity {
+  margin-left: 20px;
+
+  &__header {
+    background-color: #d1d4d7;
+    color: #000;
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px 5px 55px;
+  }
+
+  .ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+    padding: 0.375rem;
+  }
+
+  .ngx-datatable.bootstrap .datatable-body .empty-row {
+    padding-left: 55px;
+    color: #4503EE;
+  }
 }

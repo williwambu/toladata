@@ -10,6 +10,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+// ngrx/store devtools
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 // HTTP intercepter
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -31,7 +34,10 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     FlexLayoutModule,
     HttpClientModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    }),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
