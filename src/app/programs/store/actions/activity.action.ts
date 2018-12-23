@@ -81,7 +81,7 @@ export class DeleteActivityFail implements Action {
 export class DeleteActivitySuccess implements Action {
   readonly type = DELETE_ACTIVITY_SUCCESS;
 
-  constructor () {
+  constructor (public payload) {
   }
 }
 

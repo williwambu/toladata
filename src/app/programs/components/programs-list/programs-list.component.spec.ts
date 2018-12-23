@@ -13,6 +13,12 @@ import {
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { Store, StoreModule } from '@ngrx/store';
+import { ActivityService } from '../../../services';
+import { AppLoaderService } from '../../../shared/app-loader/app-loader.service';
+import { ToastrConfig, ToastrModule, ToastrService } from 'ngx-toastr';
 
 describe('ProgramsListComponent', () => {
   let component: ProgramsListComponent;
@@ -35,7 +41,12 @@ describe('ProgramsListComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,
-        MatNativeDateModule]
+        MatNativeDateModule,
+        RouterModule,
+        HttpClientModule,
+        ToastrModule.forRoot(),
+        StoreModule.forRoot({})],
+      providers: [Store, ActivityService, AppLoaderService]
     })
       .compileComponents();
   }));

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import * as fromStore from '../../store';
 
-import { Program } from '../../../models/program.models';
+import { Program } from '../../../models/program.model';
 import { Activity } from '../../../models/activity.model';
 
 import { AppLoaderService } from '../../../shared/app-loader/app-loader.service';
@@ -24,6 +24,7 @@ export class ProgramsListComponent implements OnInit {
   activities$: Observable<Activity[]>;
   programsLoading$: Observable<boolean>;
   programsLoaded$: Observable<boolean>;
+  programLoadingFail$: Observable<any>;
   activitiesLoading$: Observable<boolean>;
 
   public programs: Program[];

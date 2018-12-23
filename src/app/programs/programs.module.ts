@@ -19,7 +19,7 @@ import {
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
 
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { effects, programReducers, activityReducers } from './store';
@@ -32,6 +32,7 @@ import { ROUTES } from './programs.routing';
 
 // components
 import * as fromComponents from './components';
+import { ToastrConfig, ToastrModule, ToastrService } from 'ngx-toastr';
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -52,12 +53,13 @@ import * as fromComponents from './components';
     MatDatepickerModule,
     MatNativeDateModule,
     SharedModule,
+    ToastrModule.forRoot(),
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature('programs', programReducers),
     StoreModule.forFeature('activities', activityReducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [...fromService.services]
+  providers: [...fromService.services, Store, ToastrService]
 })
 export class ProgramsModule {
 }

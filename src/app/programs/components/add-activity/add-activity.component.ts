@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 import * as fromStore from '../../store';
-import { Program } from '../../../models/program.models';
+import { Program } from '../../../models/program.model';
 
 import { AppLoaderService } from '../../../shared/app-loader/app-loader.service';
 import { ActivityService } from '../../../services';

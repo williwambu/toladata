@@ -40,7 +40,7 @@ export class ActivitiesEffects {
           map(response => {
             console.log(response);
             if (response.status === '204') {
-              return new activitiesActions.DeleteActivitySuccess();
+              return new activitiesActions.DeleteActivitySuccess(action.payload);
             }
           }),
           catchError(error => of(new activitiesActions.DeleteActivityFail(error)))

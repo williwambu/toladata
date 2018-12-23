@@ -63,11 +63,14 @@ export function activitiesReducer (
     }
 
     case fromActivity.CREATE_ACTIVITY_SUCCESS: {
-      console.log(action.payload);
+      const { entities } = state;
+      entities[action.payload.id] = action.payload;
+
       return {
         ...state,
+        entities,
         loading: false,
-        loaded: false
+        loaded: true
       };
     }
 
@@ -88,10 +91,14 @@ export function activitiesReducer (
     }
 
     case fromActivity.DELETE_ACTIVITY_SUCCESS: {
+      let entities = state.entities ;
+      delete entities[action.payload];
+
       return {
         ...state,
-        loading: true,
-        loaded: false
+        entities,
+        loading: false,
+        loaded: true
       };
     }
   }

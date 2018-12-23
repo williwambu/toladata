@@ -1,5 +1,5 @@
 import * as fromPrograms from '../actions/programs.actions';
-import { Program } from '../../../models/program.models';
+import { Program } from '../../../models/program.model';
 
 
 export interface IProgramsState {

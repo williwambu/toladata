@@ -9,7 +9,7 @@ import { Activity } from '../models/activity.model';
 
 @Injectable()
 export class ActivityService {
-  private apiUrl: string;
+  public apiUrl: string;
 
   constructor (private http: HttpClient) {
     this.apiUrl = `${environment.apiURL}/workflowlevel2/`;

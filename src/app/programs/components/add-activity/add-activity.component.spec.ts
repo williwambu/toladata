@@ -13,6 +13,12 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ActivityService } from '../../../services';
+import { HttpClientModule } from '@angular/common/http';
+import { StateObservable, Store, StoreModule } from '@ngrx/store';
+import { AppLoaderService } from '../../../shared/app-loader/app-loader.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AddActivityComponent', () => {
   let component: AddActivityComponent;
@@ -39,7 +45,12 @@ describe('AddActivityComponent', () => {
         MatInputModule,
         MatDatepickerModule,
         MatNativeDateModule,
-      ]
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        StoreModule.forRoot({}),
+      ],
+      providers: [Store, ActivityService, AppLoaderService]
     })
     .compileComponents();
   }));

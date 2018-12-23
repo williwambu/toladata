@@ -1,7 +1,7 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromPrograms from '../reducers/programs.reducer';
 import * as fromRoot from '../../../store';
-import { Program } from '../../../models/program.models';
+import { Program } from '../../../models/program.model';
 
 // PROGRAMS
 export interface ProgramsState {
